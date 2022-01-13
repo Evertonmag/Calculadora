@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="App.Calculadora.Calc" 
+    BackgroundColor="Black">
+
+    <Grid  RowDefinitions = " *, *, 50, *, *, *, * "
+              ColumnDefinitions = " *, *, *, * " >
+
+        <!--Visor linha 1-->
+        <Label x:Name="txt_visor" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
+                   BackgroundColor="#000" TextColor="#CCC" FontSize="35"
+                   HorizontalTextAlignment="End"
+                   VerticalTextAlignment="Center" />
+        
+        <!--Visor linha 2-->
+        <Label x:Name="txt_Resultado" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                   BackgroundColor="#000" TextColor="#FFF" FontSize="Title"
+                   HorizontalTextAlignment="End"
+                   VerticalTextAlignment="Center" />
+        
+        <!--Linha 3 da calculadora botao historico,apagar e conversor-->
+        <ImageButton x:Name="historico" Grid.Row="2" Grid.Column="0" />
+        <ImageButton x:Name="Conversor" Grid.Row="2" Grid.Column="1" />
+        <ImageButton x:Name="apagar" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
+                     HorizontalOptions="End" Margin="0,0,20,0"
+                     Clicked="apagar_Clicked" />
+
+        <!--Linha 4 da calculadora com botões de acoes-->
+        <Button Grid.Row="3" Grid.Column="0" Text="C" Clicked="Button_Clicked_Limpar" Style="{StaticResource botaoEscuro}" />
+        <Button Grid.Row="3" Grid.Column="1" Text="%" Clicked="Button_Clicked_Porcento" Style="{StaticResource botaoEscuro}" />
+        <Button Grid.Row="3" Grid.Column="2" Text="(  )" Clicked="Button_Clicked_Parenteses" Style="{StaticResource botaoEscuro}" />
+        <Button Grid.Row="3" Grid.Column="3" Text="÷" Clicked="Button_Clicked_Dividir" Style="{StaticResource botaoOperacoes}" />
+
+        <!--Linha 5 da calculadora com botões de acoes-->
+        <Button Grid.Row="4" Grid.Column="0" Text="7" Clicked="Button_Clicked_7" Style="{StaticResource botaoClaro}" />
+        <Button Grid.Row="4" Grid.Column="1" Text="8" Clicked="Button_Clicked_8" Style="{StaticResource botaoClaro}" />
+        <Button Grid.Row="4" Grid.Column="2" Text="9" Clicked="Button_Clicked_9" Style="{StaticResource botaoClaro}" />
+        <Button Grid.Row="4" Grid.Column="3" Text="×" Clicked="Button_Clicked_Multiplicar" Style="{StaticResource botaoOperacoes}" />
+
+        <!--Linha 6 da calculadora com botões de acoes-->
+        <Button Grid.Row="5" Grid.Column="0" Text="4" Clicked="Button_Clicked_4" Style="{StaticResource botaoClaro}" />
+        <Button Grid.Row="5" Grid.Column="1" Text="5" Clicked="Button_Clicked_5" Style="{StaticResource botaoClaro}" />
+        <Button Grid.Row="5" Grid.Column="2" Text="6" Clicked="Button_Clicked_6" Style="{StaticResource botaoClaro}" />
+        <Button Grid.Row="5" Grid.Column="3" Text="-" Clicked="Button_Clicked_Subtrair" Style="{StaticResource botaoOperacoes}" />
+
+        <!--Linha 7 da calculadora com botões de acoes-->
+        <Button Grid.Row="6" Grid.Column="0" Text="1" Clicked="Button_Clicked_1" Style="{StaticResource botaoClaro}" />
+        <Button Grid.Row="6" Grid.Column="1" Text="2" Clicked="Button_Clicked_2" Style="{StaticResource botaoClaro}" />
+        <Button Grid.Row="6" Grid.Column="2" Text="3" Clicked="Button_Clicked_3" Style="{StaticResource botaoClaro}" />
+        <Button Grid.Row="6" Grid.Column="3" Text="+" Clicked="Button_Clicked_Somar" Style="{StaticResource botaoOperacoes}" />
+
+        <!--Linha 8 da calculadora com botões de acoes-->
+        <Button Grid.Row="7" Grid.Column="0" Text="+/-" Clicked="Button_Clicked_Inversor" Style="{StaticResource botaoClaro}" />
+        <Button Grid.Row="7" Grid.Column="1"  Text="0" Clicked="Button_Clicked_0" Style="{StaticResource botaoClaro}" />
+        <Button Grid.Row="7" Grid.Column="2" Text="," Clicked="Button_Clicked_Ponto" Style="{StaticResource botaoClaro}" />
+        <Button Grid.Row="7" Grid.Column="3" Text="=" Clicked="Button_Clicked_Igual" Style="{StaticResource botaoOperacoes}" />
+
+    </Grid>
+
+</ContentPage>
