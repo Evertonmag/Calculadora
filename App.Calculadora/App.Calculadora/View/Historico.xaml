@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App.Calculadora.View.Historico"
+             BackgroundColor="Black">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Apagar tudo" Clicked="ToolbarItem_Clicked"  />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+
+            <ListView x:Name="lst_lista_historico">
+                <ListView.Header>
+                    <Grid RowDefinitions="Auto" ColumnDefinitions="*">
+
+                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Title}" Text="Ultimos calculos" />
+                        
+                    </Grid>
+                </ListView.Header>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Remover" Clicked="RemoverItem_Clicked" />
+                            </ViewCell.ContextActions>
+
+                            <Grid RowDefinitions="Auto" ColumnDefinitions="*">
+                                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource List}" Text="{Binding Result}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

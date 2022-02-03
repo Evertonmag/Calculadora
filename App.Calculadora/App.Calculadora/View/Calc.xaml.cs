@@ -1,11 +1,14 @@
-﻿using NCalc2;
+﻿using App.Calculadora.Model;
+using NCalc2;
 using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace App.Calculadora
+namespace App.Calculadora.View
 {
     public partial class Calc : ContentPage
     {
+        App PropriedadesApp;
         double pre = 0;
         double pos = 0;
         string calculo = "";
@@ -16,6 +19,9 @@ namespace App.Calculadora
         public Calc()
         {
             InitializeComponent();
+
+            PropriedadesApp = (App)Application.Current;
+
             historico.Source = ImageSource.FromResource("App.Calculadora.Img.historico.png");
             apagar.Source = ImageSource.FromResource("App.Calculadora.Img.apagar.png");
             Conversor.Source = ImageSource.FromResource("App.Calculadora.Img.conversorUni.png");
@@ -243,8 +249,25 @@ namespace App.Calculadora
         }
         private void Button_Clicked_Igual(object sender, EventArgs e)
         {
-            txt_visor.Text = txt_Resultado.Text;
-            txt_Resultado.Text = "";
+            try
+            {
+                List<History> historicos = new List<History>();
+
+                string vlrResult = txt_Resultado.Text;
+
+                /*historicos.Add(new History(vlrResult));*/
+
+                PropriedadesApp.ArrayHistory.Add(new History(vlrResult));
+
+                txt_visor.Text = txt_Resultado.Text;
+                txt_Resultado.Text = "";
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Ops", $"Algo deu errado, tente novamente se persistir o erro entre" +
+                    $"em contato com o suporte. O erro foi: {ex.Message}", "OK");
+            }
+
         }
         private void Button_Clicked_Inversor(object sender, EventArgs e)
         {
@@ -322,36 +345,49 @@ namespace App.Calculadora
                 //testar se o valor ha valor na label
                 if (txt_visor.Text != "")
                 {
-                    txt_visor.Text = txt_visor.Text.Remove(txt_visor.Text.Length - 1);
+                    //txt_visor.Text = txt_visor.Text.Remove(txt_visor.Text.Length - 1);
                     //testar se tem valor apos o calculo
                     if (txt_visor.Text.Contains("+") || txt_visor.Text.Contains("-") ||
                         txt_visor.Text.Contains("*") || txt_visor.Text.Contains("/"))
                     {
-                        string teste = txt_visor.Text.Split('+')[1];
-                        if (teste.Length < 1)
+                        var separadores = new char[] { '+', '-', '*', '/' };
+                        string[] split = txt_visor.Text.Split(separadores);
+                        string aux = split[0];
+                        double vlr = double.Parse(split[1]);
+                        if (vlr < 10 && vlr > -10)
                         {
-                            //pre = double.Parse(txt_Resultado.Text);
-                            //double teste1 = double.Parse(txt_visor.Text.Split('+')[1]);
-                            //switch (calculo)
-                            //{
-                            //    case "+":
-                            //        pre -= teste1;
-                            //        break;
-                            //    case "-":
-                            //        pre += teste1;
-                            //        break;
-                            //    case "*":
-                            //        pre /= teste1;
-                            //        break;
-                            //    case "/":
-                            //        pre *= teste1;
-                            //        break;
-                            //}
+                            txt_visor.Text = txt_visor.Text.Remove(txt_visor.Text.Length - 1);
+                            switch (calculo)
+                            {
+                                case "+":
+                                    txt_visor.Text = "";
+                                    txt_visor.Text = aux;
+                                    break;
+                                case "-":
+                                    txt_visor.Text = "";
+                                    txt_visor.Text = aux;
+                                    break;
+                                case "*":
+                                    txt_visor.Text = "";
+                                    txt_visor.Text = aux;
+                                    break;
+                                case "/":
+                                    txt_visor.Text = "";
+                                    txt_visor.Text = aux;
+                                    break;
+                            }
                         }
                         else
-                            Calcular();
+                        {
+                            txt_visor.Text = txt_visor.Text.Remove(txt_visor.Text.Length - 1);
+                        }
                     }
-
+                    else
+                    {
+                        txt_visor.Text = txt_visor.Text.Remove(txt_visor.Text.Length - 1);
+                    }
+                    if (txt_visor.Text != "")
+                        Calcular();
                 }
 
             }
@@ -359,6 +395,22 @@ namespace App.Calculadora
             {
                 DisplayAlert("Ops", "Algo não deu certo tente novamente mais tarde se persistir o erro " +
                                 $"envie para nos qual foi. O erro dado foi: {ex.Message}", "Ok");
+            }
+        }
+
+        private void historico_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                Navigation.PushAsync(new Historico()
+                {
+                    BindingContext = historico
+                });
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Ops", $"Algo deu errado, tente novamente se persistir o erro entre" +
+                    $"em contato com o suporte. O erro foi: {ex.Message}", "OK");
             }
         }
     }

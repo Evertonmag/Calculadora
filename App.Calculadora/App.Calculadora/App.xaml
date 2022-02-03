@@ -29,5 +29,16 @@
             <Setter Property="BackgroundColor" Value="DarkOrange" />
             <Setter Property="TextColor" Value="white" />
         </Style>
+
+        <Style x:Key="Title" TargetType="Label">
+            <Setter Property="FontSize" Value="Title" />
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+
+        <Style x:Key="List" TargetType="Label">
+            <Setter Property="FontSize" Value="Body" />
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+        
     </Application.Resources>
 </Application>
